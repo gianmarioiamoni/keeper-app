@@ -1,0 +1,41 @@
+{
+  "name": "using-pre-built-react-components",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@emotion/styled-base": "11.0.0",
+    "@material-ui/icons": "4.11.3",
+    "@material-ui/system": "4.12.2",
+    "@material-ui/types": "5.1.0",
+    "@material-ui/utils": "4.11.3",
+    "@mui/icons-material": "5.14.0",
+    "@mui/material": "5.14.0",
+    "@mui/utils": "5.13.7",
+    "axios": "^1.4.0",
+    "emotion": "11.0.0",
+    "mui": "0.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "typescript": "5.1.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
