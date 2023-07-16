@@ -29,8 +29,6 @@ function App() {
     setNotes(prevNotes => {
       return [...prevNotes, newNote];
     });
-    // const payload = newNote;
-    // insertNote(payload);
   }
 
   function deleteNote(id, _id) {

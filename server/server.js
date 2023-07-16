@@ -49,12 +49,30 @@ app.route("/notes")
     
 })
 .post(function(req, res) {
-    console.log(req.body.note.title);
-    console.log(req.body.note.content);
-    new Note({title: req.body.note.title, content: req.body.note.content}).save()
-    .then( () => res.send("New note has been correctly added"))
-    .catch( err => res.send(err));
-});
+    console.log(req.body.title);
+    console.log(req.body.content);
+    //console.log(req.body);
+    //new Note({title: req.body.note.title, content: req.body.note.content}).save()
+    new Note({title: req.body.title, content: req.body.content}).save()
+    .then( (savedDoc) => {
+         const newId = (savedDoc._id.toString()); 
+         console.log(savedDoc);
+         console.log(newId);
+         console.log("POST");
+         //res.send("New note has been correctly added");
+         //res.send(savedDoc);
+         //res.send(JSON.stringify(savedDoc));
+         return res.status(201).json({
+            success: true,
+            id: newId,
+            message: 'Note created!'
+         })
+    })
+    .catch( (err) => { 
+         console.log(err);
+         //res.send(err);
+    });
+})
 
 
 ////////////
@@ -68,7 +86,7 @@ app.route("/notes/:id")
         {
             title: req.body.title,
             content: req.body.content,
-            _id: req.body._id
+            _id: req.body.noteId
         }
     )
     .then( () => res.send("note successfully replaced"))

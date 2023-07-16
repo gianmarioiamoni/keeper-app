@@ -5,16 +5,21 @@ import Zoom from "@mui/material/Zoom";
 import axios from "axios";
 
 function CreateArea(props) {
+
   const [note, setNote] = useState({
     title: "",
     content: "",
     _id: "" 
   });
 
+  let newNote = {
+    title: "",
+    content: "",
+    _id: "" 
+  };
+
   function handleChange(event) {
     const { name, value } = event.target;
-
-
     setNote((prevNote) => {
       return {
         ...prevNote,
@@ -25,17 +30,51 @@ function CreateArea(props) {
 
   function submitNote(event) {
 
-   axios.post(`http://localhost:5000/notes`, { note })
-   .then((res) => {
-     console.log(res);
-     console.log(res.data);
-     console.log("axios");
-    })
-    .catch( (err) => {
-      console.log(err);
-    });
+    async function doPostRequest() {
+
+      let payload = { title: note.title, content: note.content, _id: note._id };
+  
+      let res = await axios.post('http://localhost:5000/notes', payload);
+  
+      let data = res.data;
+      console.log(data);
+      console.log(data.id);
+
+      newNote = {
+        title: note.title,
+        content: note.content,
+        _id: data.id
+      };
+
+      console.log("******** console.log(newNote)")
+      console.log(newNote);
+
+      setNote(previousState => {
+        return { ...previousState, _id: data.id }
+      });
     
+      // setNote({
+      //   title: note.title,
+      //   content: note.content,
+      //   _id: data.id.toString() 
+      // });
+   
+      console.log("******** doPostRequest - console.log(note)");
+      console.log(note);
+      // setNote((prevNote) => {
+      //   return {
+      //     ...prevNote,
+      //     noteId: data.id 
+      //   };
+      // });
+    }
+  
+    doPostRequest();
+
+    console.log("******* onAdd note");
+    console.log(note);
     props.onAdd(note);
+    //props.onAdd(newNote);
     
     setNote({
       title: "",
