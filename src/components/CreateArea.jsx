@@ -11,7 +11,6 @@ function CreateArea(props) {
     title: "",
     content: "",
     _id: "",
-    uuid: uuidv4() 
   });
 
   function handleChange(event) {
@@ -27,15 +26,9 @@ function CreateArea(props) {
   function submitNote(event) {
 
     
-     const newUUID = uuidv4();
-    // console.log("***** newUUID = " + newUUID);
-     setNote(previousState => {
-       return { ...previousState, uuid: newUUID }
-     });
-    
     async function doPostRequest() {
 
-      let payload = { title: note.title, content: note.content, _id: note._id, uuid: note.uuid };
+      let payload = { title: note.title, content: note.content, _id: note._id };
   
       let res = await axios.post('http://localhost:5000/notes', payload);
   
@@ -53,10 +46,12 @@ function CreateArea(props) {
   
     doPostRequest();
 
-     console.log("******* onAdd note");
-     console.log(note);
-     props.onAdd(note);
+    console.log("******* onAdd note");
+    console.log(note);
+    props.onAdd(note);
     
+    //doPostRequest(); 
+   
     setNote({
       title: "",
       content: "",
@@ -65,8 +60,11 @@ function CreateArea(props) {
     });
     
     //setExpanded(false);
-    //event.preventDefault();
-  }
+    event.preventDefault();
+
+  } // function submitNote()
+
+
   const [isExpanded, setExpanded] = useState(false);
   
   return (

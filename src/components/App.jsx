@@ -31,16 +31,27 @@ function App() {
     });
   }
 
-  function deleteNote(id, _id) {
+  function deleteNote(id, _id, title, content) {
 
-    axios.delete(`http://localhost:5000/notes/${_id}`)
-      .then((response) => {
-        console.log(response);
-        console.log(response.data);
-      });
+    //axios.delete(`http://localhost:5000/notes/${_id}`)
+    axios.delete(`http://localhost:5000/notes/${id}`,
+    {data: {
+      title: title,
+      content: content
+    }}
+    )
+    .then((response) => {
+      console.log(response);
+      console.log(response.data);
+    });
 
+    // setNotes(prevNotes => {
+    //   return prevNotes.filter((noteItem, index) => {
+    //     return index !== id;
+    //   });
+    // });
     setNotes(prevNotes => {
-      return prevNotes.filter((noteItem, index) => {
+      return notes.filter((noteItem, index) => {
         return index !== id;
       });
     });

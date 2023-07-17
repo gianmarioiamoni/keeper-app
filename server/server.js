@@ -28,6 +28,7 @@ const noteSchema = new mongoose.Schema(
     {
         title: String,
         content: String,
+        key: String
     }
 );
 
@@ -51,9 +52,10 @@ app.route("/notes")
 .post(function(req, res) {
     console.log(req.body.title);
     console.log(req.body.content);
+    console.log(req.body.id);
     //console.log(req.body);
     //new Note({title: req.body.note.title, content: req.body.note.content}).save()
-    new Note({title: req.body.title, content: req.body.content}).save()
+    new Note({title: req.body.title, content: req.body.content, key: req.body.id}).save()
     .then( (savedDoc) => {
          const newId = (savedDoc._id.toString()); 
          console.log(savedDoc);
@@ -93,6 +95,7 @@ app.route("/notes/:id")
     .catch( err => res.send(err) )
 })
 .delete(function(req, res) {
+    const newId = req.params.id;
     //Note.findOneAndDelete(
     console.log(req);
     console.log("****************  req.params")
@@ -101,12 +104,16 @@ app.route("/notes/:id")
     console.log(req.params._id);
     console.log("****************  req.params.id")
     console.log(req.params.id);
+    console.log(req.body.title);
+    console.log(req.body.content);
     console.log("DELETE");
     Note.findOneAndDelete(
-        {_id: req.params.id}
+        //{key: newId}
+        { $and: [ { title: req.body.title }, { content: req.body.content } ] } 
     )
     .then( () => res.send("note successfully deleted"))
     .catch( err => res.send(err) )
+    
 });
 
 
