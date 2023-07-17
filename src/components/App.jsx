@@ -5,12 +5,11 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 import axios from 'axios';
 
-const api = axios.create({
-  //baseURL: 'http://localhost:5000/api',
-  baseURL: 'http://localhost:5000',
-});
+// const api = axios.create({
+//   baseURL: 'http://localhost:5000',
+// });
 
-const insertNote = payload => api.post(`/notes`, payload);
+// const insertNote = payload => api.post(`/notes`, payload);
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -19,7 +18,6 @@ function App() {
   useEffect(() => {
     axios.get("http://localhost:5000/notes")
     .then((data) => {
-      console.log(data);
       setNotes(data?.data);
     })
     .catch( (err) => console.log(err));
@@ -33,7 +31,6 @@ function App() {
 
   function deleteNote(id, _id, title, content) {
 
-    //axios.delete(`http://localhost:5000/notes/${_id}`)
     axios.delete(`http://localhost:5000/notes/${id}`,
     {data: {
       title: title,
@@ -45,11 +42,6 @@ function App() {
       console.log(response.data);
     });
 
-    // setNotes(prevNotes => {
-    //   return prevNotes.filter((noteItem, index) => {
-    //     return index !== id;
-    //   });
-    // });
     setNotes(prevNotes => {
       return notes.filter((noteItem, index) => {
         return index !== id;

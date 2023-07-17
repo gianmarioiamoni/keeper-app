@@ -33,30 +33,21 @@ function CreateArea(props) {
       let res = await axios.post('http://localhost:5000/notes', payload);
   
       let data = res.data;
-      console.log(data);
-      console.log(data.id);
 
       setNote(previousState => {
         return { ...previousState, _id: data.id }
       });
 
-      console.log("******** doPostRequest - console.log(note)");
-      console.log(note);
     }
   
     doPostRequest();
 
-    console.log("******* onAdd note");
-    console.log(note);
     props.onAdd(note);
     
-    //doPostRequest(); 
-   
     setNote({
       title: "",
       content: "",
       _id: "",
-      uuid: ""
     });
     
     //setExpanded(false);
