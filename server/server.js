@@ -54,6 +54,7 @@ app.route("/notes")
     const ind = req.body.id;
     console.log("ind = " + ind);
     new Note({title: req.body.title, content: req.body.content, id: req.body.id}).save()
+    //Note.create({title: req.body.title, content: req.body.content, id: "iddddd"})
     .then( (savedDoc) => {
          const newId = (savedDoc._id.toString()); 
          return res.status(201).json({

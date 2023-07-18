@@ -25,13 +25,7 @@ function Note(props) {
   }
   
   function handleDelete() {
-    const newTitle = document.getElementById("title-"+props.id).textContent;
-    const newContent = document.getElementById("content-"+props.id).textContent;
-    console.log("***** handleDelete()");
-    console.log(newTitle);
-    console.log(newContent);
-    //props.onDelete(props.id, props._id, note.title, note.content);
-    props.onDelete(props.id, props._id, newTitle, newContent);
+    props.onDelete(props.id, props._id, note.title, note.content);
   }
  
   function handleModify() {
