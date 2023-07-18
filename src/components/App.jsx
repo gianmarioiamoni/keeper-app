@@ -30,7 +30,6 @@ function App() {
   }
 
   function deleteNote(id, _id, title, content) {
-
     axios.delete(`http://localhost:5000/notes/${id}`,
     {data: {
       title: title,
@@ -47,7 +46,36 @@ function App() {
         return index !== id;
       });
     });
-  }
+  } // function deleteNote()
+
+  function modifyNote(id, _id, title, content, oldTitle, oldContent) {
+    axios.put(`http://localhost:5000/notes/${id}`,
+     {
+       title: title,
+       content: content,
+       oldTitle: oldTitle,
+       oldContent: oldContent
+     }
+     )
+     .then((response) => {
+       console.log(response);
+       console.log(response.data);
+     });
+
+     const noteItem = {
+      title: title,
+      content: content,
+      _id: ""
+     };
+
+    setNotes(prevNotes => {
+      return notes.fill(noteItem, id, id+1); 
+    });
+     console.log("modifyNote");
+     console.log(title);
+     console.log(content);
+     console.log(notes)
+  } // function modifyNote()
 
   return (
     <div>
@@ -62,12 +90,14 @@ function App() {
             content={noteItem.content}
             _id={noteItem._id}
             onDelete={deleteNote}
+            onModify={modifyNote}
           />
         );
       })}
       <Footer />
     </div>
   );
-}
+
+} // function App()
 
 export default App;

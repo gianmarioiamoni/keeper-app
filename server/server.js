@@ -17,6 +17,7 @@ const url = "mongodb://localhost:27017/";
 const dbName = "keeper-db";
 const opts = "";
 
+mongoose.set('debug', true);
 // create DB connection string
 const connectStr = url + dbName + opts;
 
@@ -28,7 +29,7 @@ const noteSchema = new mongoose.Schema(
     {
         title: String,
         content: String,
-        key: String
+        id: String 
     }
 );
 
@@ -50,7 +51,10 @@ app.route("/notes")
     
 })
 .post(function(req, res) {
-    new Note({title: req.body.title, content: req.body.content, key: req.body.id}).save()
+    const ind = req.body.id;
+    console.log("ind = " + ind);
+    new Note({title: req.body.title, content: req.body.content, id: req.body.id}).save()
+    //Note.create({title: req.body.title, content: req.body.content, id: "iddddd"})
     .then( (savedDoc) => {
          const newId = (savedDoc._id.toString()); 
          return res.status(201).json({
@@ -71,12 +75,15 @@ app.route("/notes")
 ////
 app.route("/notes/:id")
 .put(function(req, res) {
+    console.log("**** app.route().put");
+    console.log(req.body.title + " " + req.body.content + " " + req.body.oldTitle + " " + req.body.oldContent);
+    console.log("id = " + req.params.id);
     Note.findOneAndReplace(
-        {title: req.params.title},
+        { $and: [ { title: req.body.oldTitle }, { content: req.body.oldContent } ] },
         {
             title: req.body.title,
             content: req.body.content,
-            _id: req.body.noteId
+            id: req.params.id 
         }
     )
     .then( () => res.send("note successfully replaced"))
