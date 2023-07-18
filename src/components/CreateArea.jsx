@@ -27,13 +27,18 @@ function CreateArea(props) {
 
     async function doPostRequest() {
 
-      let payload = { title: note.title, content: note.content, _id: note._id };
+      //let payload = { title: note.title, content: note.content, _id: note._id };
+      let payload = { title: note.title, content: note.content, id: note._id };
       let res = await axios.post('http://localhost:5000/notes', payload);
       let data = res.data;
 
       setNote(previousState => {
         return { ...previousState, _id: data.id }
       });
+
+      console.log("******** note dopo post: ");
+      console.log(note.title);
+      console.log(note.content);
 
     }
   

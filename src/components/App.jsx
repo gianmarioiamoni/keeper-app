@@ -18,6 +18,10 @@ function App() {
   useEffect(() => {
     axios.get("http://localhost:5000/notes")
     .then((data) => {
+      console.log("**** useEffect");
+      console.log(data);
+      console.log(data?.data);
+
       setNotes(data?.data);
     })
     .catch( (err) => console.log(err));
@@ -43,9 +47,20 @@ function App() {
 
     setNotes(prevNotes => {
       return notes.filter((noteItem, index) => {
-        return index !== id;
+        //return index !== id;
+        console.log(noteItem.title + " " + title);
+        console.log(noteItem.content + " " + content);
+        return ((noteItem.title !== title) || (noteItem.content !== content));
       });
+
     });
+    console.log("***** deleteNote()");
+    //console.log("notes = " + notes);
+    notes.map((noteItem) => {
+      console.log(noteItem.title);
+      console.log(noteItem.content);
+    });
+
   } // function deleteNote()
 
   function modifyNote(id, _id, title, content, oldTitle, oldContent) {
