@@ -84,7 +84,7 @@ function App() {
       {notes.map((noteItem, index) => {
         return (
           <Note
-            key={index}
+            key={noteItem._id}
             id={index}
             title={noteItem.title}
             content={noteItem.content}
