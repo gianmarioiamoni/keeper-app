@@ -5,15 +5,9 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 import axios from 'axios';
 
-// const api = axios.create({
-//   baseURL: 'http://localhost:5000',
-// });
-
-// const insertNote = payload => api.post(`/notes`, payload);
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [deletedNoteId, setDeletedNoteId] = useState(0);
 
   useEffect(() => {
     axios.get("http://localhost:5000/notes")
@@ -71,10 +65,6 @@ function App() {
     setNotes(prevNotes => {
       return notes.fill(noteItem, id, id+1); 
     });
-     console.log("modifyNote");
-     console.log(title);
-     console.log(content);
-     console.log(notes)
   } // function modifyNote()
 
   return (

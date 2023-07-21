@@ -30,15 +30,12 @@ function Note(props) {
  
   function handleModify() {
     setEditable(true);
-    //props.onModify(props.id, props._id, props.title, props.content);
   }
  
   function handleSave() {
     setEditable(false);
     const newTitle = document.getElementById("title-"+props.id).textContent;
     const newContent = document.getElementById("content-"+props.id).textContent;
-    //props.onModify(props.id, props._id, note.title, note.content);
-    console.log(newTitle + " " + newContent + " " +  note.title + " " + note.content);
     props.onModify(props.id, props._id, newTitle, newContent, note.title, note.content);
   }
 
