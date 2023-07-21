@@ -18,36 +18,16 @@ function App() {
   }, []);
 
   function addNote(newNote) {
-    async function doPostRequest() {
-
-      let payload = { title: newNote.title, content: newNote.content };
-      let res = await axios.post('http://localhost:5000/notes', payload);
-      let data = res.data;
-  
-      // setNote(previousState => {
-      //   return { ...previousState, _id: data.id }
-      // });
-      newNote = {...newNote, _id: data.id};
-      console.log("newNote: " + newNote);
-  
-    }
-    
-    doPostRequest();
-    
     setNotes(prevNotes => {
       return [...prevNotes, newNote];
     });
-
-    console.log("notes: " + notes);
   }
 
   function deleteNote(id, _id, title, content) {
     axios.delete(`http://localhost:5000/notes/${id}`,
     {data: {
       title: title,
-      content: content,
-      //_id: _id
-      _id: notes[id]._id
+      content: content
     }}
     )
     .then((response) => {
