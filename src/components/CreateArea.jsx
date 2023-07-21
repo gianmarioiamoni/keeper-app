@@ -25,19 +25,19 @@ function CreateArea(props) {
 
   function submitNote(event) {
 
-    async function doPostRequest() {
+    // async function doPostRequest() {
 
-      let payload = { title: note.title, content: note.content, _id: note._id };
-      let res = await axios.post('http://localhost:5000/notes', payload);
-      let data = res.data;
+    //   let payload = { title: note.title, content: note.content, _id: note._id };
+    //   let res = await axios.post('http://localhost:5000/notes', payload);
+    //   let data = res.data;
 
-      setNote(previousState => {
-        return { ...previousState, _id: data.id }
-      });
+    //   setNote(previousState => {
+    //     return { ...previousState, _id: data.id }
+    //   });
 
-    }
+    // }
   
-    doPostRequest();
+    // doPostRequest();
 
     props.onAdd(note);
     

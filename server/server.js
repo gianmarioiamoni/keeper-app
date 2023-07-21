@@ -51,9 +51,7 @@ app.route("/notes")
     
 })
 .post(function(req, res) {
-    const ind = req.body.id;
-    console.log("ind = " + ind);
-    new Note({title: req.body.title, content: req.body.content, id: req.body.id}).save()
+    new Note({title: req.body.title, content: req.body.content}).save()
     //Note.create({title: req.body.title, content: req.body.content, id: "iddddd"})
     .then( (savedDoc) => {
          const newId = (savedDoc._id.toString()); 
@@ -91,7 +89,8 @@ app.route("/notes/:id")
 })
 .delete(function(req, res) {
     Note.findOneAndDelete(
-        { $and: [ { title: req.body.title }, { content: req.body.content } ] } 
+        //{ $and: [ { title: req.body.title }, { content: req.body.content } ] } 
+        {_id: req.body._id}
     )
     .then( () => res.send("note successfully deleted"))
     .catch( err => res.send(err) )
